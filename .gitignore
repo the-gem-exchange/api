@@ -1,3 +1,8 @@
+# Sensitive info
+discord_credentials.json
+encryption.key
+secret.key
+
 # Logs
 logs
 *.log
@@ -56,4 +61,3 @@ typings/
 
 # dotenv environment variables file
 .env
-

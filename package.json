@@ -1,0 +1,28 @@
+{
+  "name": "gem-exchange-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "btoa": "^1.1.2",
+    "colors": "^1.1.2",
+    "cors": "^2.8.4",
+    "crypto": "^1.0.1",
+    "discord.js": "^11.2.1",
+    "express": "^4.15.4",
+    "fast-sha256": "^1.1.0",
+    "jsonwebtoken": "^8.1.0",
+    "moment": "^2.20.1",
+    "mongoose": "^4.11.10",
+    "order-id": "^1.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.1"
+  }
+}
