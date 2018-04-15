@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs":  "apidoc -i ./api -e ./node_modules -o ./docs"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "order-id": "^1.1.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.1"
+    "apidoc": "^0.17.6",
+    "nodemon": "^1.17.3"
   }
 }
