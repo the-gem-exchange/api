@@ -12,3 +12,7 @@ To run, you will need:
 - To automatically restart the server as changes are made, start the server with `nodemon` instead:
 - Install: `npm install -g nodemon`
 - Run: `nodemon server.js`
+
+# Documentation
+
+https://the-gem-exchange.github.io/gemex-api/

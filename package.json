@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs":  "apidoc -i ./api -e ./node_modules -o ./docs"
+    "docs": "apidoc -i ./api -e ./node_modules -o ./docs"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "discord.js": "^11.2.1",
+    "eslint": "^4.19.1",
     "express": "^4.15.4",
     "fast-sha256": "^1.1.0",
     "jsonwebtoken": "^8.1.0",

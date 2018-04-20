@@ -13,7 +13,7 @@ const User     = require("../models/user");
 
 /**
  *  @function authenticate
- *  @description Log in a user and return an auth token
+ *  @description Log in a user with a username and password and return an auth token
  */
 exports.authenticate = function(req, res, next){
   const email    = (typeof req.body.email    === 'string') ? req.body.email    : false;
