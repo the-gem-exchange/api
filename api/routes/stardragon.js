@@ -1,9 +1,8 @@
 const router       = require('express').Router();
-const Stardragon   = require('../models/stardragon');
 const sdController = require('../controllers/stardragon');
 
 // Routes for /stardragons
-router.route("/")
+router.route('/')
   /**
    *  @api {get} /stardragons Get Stardragons
    *  @apiName        GetStardragons
@@ -19,8 +18,8 @@ router.route("/")
    *
    *  @apiParam {String} name The Stardragon's name.
    *  @apiParam {Number} base_price The price this originally sold for.
-   *  @apiParam {Date} created Date when this Stardragon was created.
-   *  @apiParam {Date} approved Date when this Stardragon was approved. Is often the same value as `created`.
+   *  @apiParam {Date} created Date when created.
+   *  @apiParam {Date} approved Date when approved. Often the same val as `created`.
    *  @apiParam {String} gender A user-defined gender, if provided.
    *  @apiParam {String="m","f","n/a"} sex
    *  @apiParam {String="myo","batch","auction"} type
@@ -28,9 +27,9 @@ router.route("/")
    *  @apiParam {String} species  `starweaver`, `starshooter`, etc.
    *  @apiParam {String} designer The ID or name of the user who created this Stardragon.
    */
-  .post(sdController.create)
+  .post(sdController.create);
 
-router.route("/:stardragon_id")
+router.route('/:stardragon_id')
   /**
    *  @api {get} /stardragons/:stardragon_id Get Stardragon
    *  @apiName        GetStardragon
@@ -40,5 +39,32 @@ router.route("/:stardragon_id")
    *  @apiParam       {String} stardragon_id The Stardragon's unique ID
    */
   .get(sdController.details)
+  /**
+   *  @api {patch} /stardragons/:stardragon_id Update Stardragon
+   *  @apiName        UpdateStardragon
+   *  @apiDescription Apply updates to a Stardragon
+   *  @apiGroup       Stardragons
+   *
+   *  @apiParam {Object} stardragon     An object containing Stardragon attributes
+   *  @apiParam {String} stardragon_id  The ID of the Stardragon to be updated *REQUIRED
+   */
+  .patch((req, res, next) => {
+    sdController.update(req.params.stardragon_id, req.body)
+      .then((updatedDragon) => {
+        res.status(200)
+          .json({
+            message: 'Stardragon updated successfully.',
+            data: updatedDragon,
+          })
+          .end();
+      })
+      .catch((updateErr) => {
+        res.error = {
+          statusCode: 500,
+          message: updateErr.message || 'Error updating Stardragon.',
+        };
+        return next();
+      });
+  });
 
 module.exports = router;

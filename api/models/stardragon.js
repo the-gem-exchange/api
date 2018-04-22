@@ -1,71 +1,67 @@
-var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var StarDragonSchema = new Schema({
+const Schema   = mongoose.Schema;
+
+const StarDragonSchema = new Schema({
   name: {
     type: String,
-    required: "Name required."
+    required: 'Name required.',
   },
 
-  owner:String, // A user ID
+  owner: String, // A user ID
 
-  image:     {type:String},
-  image_url: {type:String},
+  image: { type: String },
+  image_url: { type: String },
 
-  species:{
-    type: [{
-      type: String,
-      enum: [
-        'StarEater',
-        'StarSweeper',
-        'StarDasher',
-        'StarFisher',
-        'StarWeaver',
-        'StarRobber',
-        'StarCrafter',
-        'StarShooter'
-      ]
-    }]
+  species: {
+    type: String,
+    enum: [
+      'StarEater',
+      'StarSweeper',
+      'StarDasher',
+      'StarFisher',
+      'StarWeaver',
+      'StarRobber',
+      'StarCrafter',
+      'StarShooter',
+    ],
   },
 
-  rarity:{
-    type: [{
-      type: String,
-      enum: ['common', 'uncommon', 'rare', 'legendary']
-    }]
+  rarity: {
+    type: String,
+    enum: ['common', 'uncommon', 'rare', 'legendary'],
   },
 
-  type:{
-    type: [{
-      type: String,
-      enum: ['myo', 'batch', 'auction']
-    }]
+  type: {
+    type: String,
+    enum: ['myo', 'batch', 'auction'],
   },
 
-  sex:{
-    type: [{
-      type: String,
-      enum: ['male', 'female', 'n/a']
-    }],
-    default:['n/a']
+  sex: {
+    type: String,
+    enum: ['male', 'female', 'n/a'],
+    default: 'n/a',
   },
 
-  gender: {type: String},
+  gender: { type: String },
 
   created: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 
-  approved: {type:Date},
+  approved: { type: Date },
 
-  designer: {type:String},
+  designer: { type: String },
 
-  base_price: {type:Number},
+  base: { type: String },
+  basePrice: { type: Number },
 
-  description: {type:String},
+  description: { type: String },
 
-  link: {type:String}
+  adminNotes: { type: String },
+
+  link: { type: String },
 
 });
 

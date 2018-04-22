@@ -2,15 +2,15 @@ const router  = require('express').Router();
 const authController = require('./../controllers/auth');
 
 // Middleware for all requests
-router.use(function(req, res, next){
+router.use((req, res, next) => {
   // Log all calls
-  console.log(req.method + ": " + req.originalUrl);
+  console.log(`${req.method}: ${req.originalUrl}`);
 
   authController.verifyAuthToken(req, res, next);
 
   // Set response headers
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT,DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT,PATCH,DELETE');
   res.header('Content-Type', 'application/json');
   res.header('Access-Control-Allow-Headers', 'Content-Type, auth-token, accept, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
@@ -18,8 +18,8 @@ router.use(function(req, res, next){
 });
 
 // Test route
-router.get('/', function(req, res){
-  res.status(200).json({message:"Gem Exchange API works!"})
+router.get('/', (req, res) => {
+  res.status(200).json({ message: 'Gem Exchange API works!' });
 });
 
 // Include other routers
