@@ -1,0 +1,16 @@
+{
+  "extends": "airbnb-base",
+  "globals": {},
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "consistent-return": "off",
+    "array-callback-return": "off",
+    "no-multi-spaces": "off",
+    "no-console":"off"
+  }
+}
