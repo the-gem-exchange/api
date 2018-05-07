@@ -79,6 +79,6 @@ exports.update = (id, stardragon) => new Promise((resolve, reject) => {
         return reject(new Error('Error Updating Stardragon'));
       }
       return resolve(updatedDragon);
-    },
+    }
   );
 });
