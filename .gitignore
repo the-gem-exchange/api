@@ -2,6 +2,7 @@
 discord_credentials.json
 encryption.key
 secret.key
+config.json
 
 # Logs
 logs

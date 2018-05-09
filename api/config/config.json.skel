@@ -1,0 +1,3 @@
+{
+  "mongoUrl": "A URL pointing to our mongodb instance."
+}

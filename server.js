@@ -1,23 +1,25 @@
 /**
  *  @description This file starts the Gem Echange API
  */
-// var mongo_url = 'mongodb://localhost:27017/devDB',
-ui_url    = 'http://localhost:4200',
-port      = process.env.PORT || 3000,
 
-// Express
-express    = require('express'),
-bodyParser = require('body-parser'),
-app        = express(),
+// Import config
+const discord = require('./api/config/discord');
+const config  = require('./api/config/config');
 
-colors     = require('colors');
-
-
-// Use Mongoose to connect API to MongoDB
+// Import Packages
+const bodyParser = require('body-parser');
+const express    = require('express');
+const colors     = require('colors');
 const mongoose = require('mongoose');
 
+// Set Static Values
+const { mongoUrl } = config;
+const port = process.env.PORT || 3000;
+const app = express();
+
+// Use Mongoose to connect API to MongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect(mongo_url, { useMongoClient: true });
+mongoose.connect(mongoUrl, { useMongoClient: true });
 
 // Require local mongoose models to avoid errors
 require('./api/models/stardragon');
@@ -28,19 +30,15 @@ require('./api/models/user');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// ROUTES
+// Require all routes
 const routes = require('./api/routes');
 
 app.use('/', routes);
 
-// Handle Errors
+// Import Middleware
 const errorHandler = require('./api/middleware/errorHandler');
 
 app.use(errorHandler.onError);
-
-// Discord Bot for error logging
-discord = require('./api/config/discord');
-
 discord.initBot();
 
 // START SERVER
