@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.247.1",
     "body-parser": "^1.17.2",
     "btoa": "^1.1.2",
     "colors": "^1.1.2",

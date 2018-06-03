@@ -10,7 +10,7 @@ const config  = require('./api/config/config');
 const bodyParser = require('body-parser');
 const express    = require('express');
 const colors     = require('colors');
-const mongoose = require('mongoose');
+const mongoose   = require('mongoose');
 
 // Set Static Values
 const { mongoUrl } = config;

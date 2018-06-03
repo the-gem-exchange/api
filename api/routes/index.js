@@ -9,7 +9,7 @@ router.use((req, res, next) => {
   authController.verifyAuthToken(req, res, next);
 
   // Set response headers
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT,PATCH,DELETE');
   res.header('Content-Type', 'application/json');
   res.header('Access-Control-Allow-Headers', 'Content-Type, auth-token, accept, Access-Control-Allow-Headers, Authorization, X-Requested-With');
