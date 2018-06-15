@@ -1,17 +1,18 @@
-var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var TraitSchema = new Schema({
+const Schema   = mongoose.Schema;
 
-  name:{
+const TraitSchema = new Schema({
+
+  name: {
     type: String,
-    required: "Trait name required."
+    required: 'Trait name required.'
   },
-  description:String,
-  type:String,
-  subtype:String,
-  rarity:String,
-  image:String,
+  description: String,
+  type: String,
+  subtype: String,
+  rarity: String,
+  image: String,
 
 });
 

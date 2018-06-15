@@ -1,18 +1,19 @@
-var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var UserSchema = new Schema({
+const Schema   = mongoose.Schema;
 
-  name:String,
+const UserSchema = new Schema({
+
+  name: String,
 
   email: {
     type: String,
-    required: "Email required."
+    required: 'Email required.'
   },
 
   password: {
     type: String,
-    required: "Password required."
+    required: 'Password required.'
   },
 
   facebook_uid: String,

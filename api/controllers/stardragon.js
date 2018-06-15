@@ -28,29 +28,28 @@ exports.list = (req, res, next) => {
  *  @description Create a Stardragon
  */
 exports.create = (req, res, next) => {
-  if (req.body) {
-    const newDragon = new StarDragon(req.body);
-    newDragon.save((err, dragon) => {
-      if (err) {
-        return next(err);
-      }
-      res.json(dragon);
-    });
-  }
-  return next({ message: 'Missing required fields.', status: 400 });
+  const newDragon = new StarDragon(req.body);
+  newDragon.save((err, dragon) => {
+    if (err) return next(err);
+    res.json({ message: `${dragon.name} created successfully.`, status: 200, stardragon: dragon });
+  });
 };
 
 /**
- *  @function    adopt
- *  @description Assign ownership of a Stardragon to a specific user
+ *  @function    delete
+ *  @description Delete a Stardragon
  */
-// exports.adopt = (user, stardragon) => {};
-
-/**
- *  @function    trade
- *  @description Allow users to transfer ownership of a Stardragon
- */
-// exports.trade = (user1, trade1, user2, trade2) => {};
+exports.delete = (req, res, next) => {
+  if (req.params.stardragon_id) {
+    const stardragonId = new ObjectId(req.params.stardragon_id);
+    StarDragon.findByIdAndRemove(stardragonId, (err) => {
+      if (err) { next(err); }
+      return next({ message: 'Stardragon deleted successfully.', status: 200 });
+    });
+  } else {
+    return next({ message: 'Missing Stardragon ID.', status: 400 });
+  }
+};
 
 /**
  *  @function    details

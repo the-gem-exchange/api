@@ -45,6 +45,8 @@ const StarDragonSchema = new Schema({
 
   gender: { type: String },
 
+  bio: { type: String },
+
   created: {
     type: Date,
     default: Date.now,

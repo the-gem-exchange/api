@@ -39,6 +39,7 @@ router.route('/:stardragon_id')
    *  @apiParam       {String} stardragon_id The Stardragon's unique ID
    */
   .get(sdController.details)
+  .delete(sdController.delete)
   /**
    *  @api {patch} /stardragons/:stardragon_id Update Stardragon
    *  @apiName        UpdateStardragon
