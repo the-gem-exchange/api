@@ -10,6 +10,8 @@ const TraitSchema = new Schema({
   },
   description: String,
   type: String,
+  species: String,
+  sex: String,
   subtype: String,
   rarity: String,
   image: String,

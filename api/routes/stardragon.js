@@ -29,6 +29,7 @@ router.route('/')
    */
   .post(sdController.create);
 
+// /stardragons/:stardragon_id
 router.route('/:stardragon_id')
   /**
    *  @api {get} /stardragons/:stardragon_id Get Stardragon
