@@ -12,6 +12,8 @@
     "array-callback-return": "off",
     "no-multi-spaces": "off",
     "no-console":"off",
-    "comma-dangle":"off"
+    "comma-dangle":"off",
+    "brace-style":"off",
+    "camelcase":"off"
   }
 }

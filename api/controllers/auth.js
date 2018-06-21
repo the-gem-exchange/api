@@ -16,7 +16,7 @@ const User     = require('../models/user');
  *  @function authenticate
  *  @description Log in a user with a username and password and return an auth token
  */
-exports.authenticate = function (req, res, next) {
+exports.authenticate = (req, res, next) => {
   const email    = (typeof req.body.email    === 'string') ? req.body.email    : false;
   const password = (typeof req.body.password === 'string') ? req.body.password : false;
 
@@ -31,15 +31,11 @@ exports.authenticate = function (req, res, next) {
     if (err) {
       return next(err);
     }
-    // No user with that email exists
-    else if (!user) {
-      return next(new Error('Invalid email.'));
+    // Invalid Login
+    else if (!user || password !== decrypt(user.password)) {
+      return next(new Error('Invalid credentials. Please try again.'));
     }
 
-    // User found, check password
-    if (password != decrypt(user.password)) {
-      return next(new Error('Invalid password.'));
-    }
     // Login success!
 
     // Create an auth token
@@ -57,17 +53,14 @@ exports.authenticate = function (req, res, next) {
  *  @function verifyAuthToken
  *  @description Check if a user's auth token is valid
  */
-exports.verifyAuthToken = function (req, res, next) {
+exports.verifyAuthToken = (req, res, next) => {
   // Get auth token
   const auth_token = req.headers['auth-token'];
 
   // Verify auth token
   if (auth_token) {
-    jwt.verify(auth_token, secret_key, (err, decoded) => {
-      if (err) {
-        return next({ status: 401, message: 'Auth token is invalid.' });
-      }
-
+    jwt.verify(auth_token, secret_key, (err) => {
+      if (err) return next({ status: 401, message: 'Auth token is invalid.' });
       res.authenticated = true;
     });
   }
@@ -79,7 +72,7 @@ exports.verifyAuthToken = function (req, res, next) {
  *  @param  {string} text The string being encrypted.
  *  @return {string}      The encrypted value.
  */
-exports.encrypt = function (text) {
+exports.encrypt = (text) => {
   const cipher = crypto.createCipher(algorithm, encryption_key);
   let crypted  = cipher.update(text, 'utf8', 'hex');
   crypted += cipher.final('hex');
@@ -105,7 +98,7 @@ function decrypt(text) {
  *  @param  {string} text The string being hashed.
  *  @return {string}      The hash.
  */
-exports.hash = function (text) {
+exports.hash = (text) => {
   const pw_hash = sha256(text);
   return btoa(String.fromCharCode.apply(null, pw_hash));
 };
