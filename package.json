@@ -24,6 +24,7 @@
     "express": "^4.15.4",
     "fast-sha256": "^1.1.0",
     "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.10",
     "moment": "^2.20.1",
     "mongoose": "^4.11.10",
     "order-id": "^1.1.0"
