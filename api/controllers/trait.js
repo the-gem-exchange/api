@@ -17,12 +17,32 @@ exports.list = (req, res, next) => {
   if (req.params.species) {
     Trait.find({ species: req.params.species }, (err, traits) => {
       if (err) { next(err); }
-      res.json(traits);
+      const sortedTraits = this.sortTraits(traits);
+      res.json(sortedTraits);
     });
   }
   Trait.find({}, (err, traits) => {
     if (err) { next(err); }
-    res.json(traits);
+    const sortedTraits = this.sortTraits(traits);
+    res.json(sortedTraits);
+  });
+};
+
+// Sort by rarity: none > common > uncommon > rare > legendary
+exports.sortTraits = (traits) => {
+  const raritySortWeights = {
+    none: 0,
+    common: 1,
+    uncommon: 2,
+    rare: 3,
+    legendary: 4
+  };
+  return traits.sort((a, b) => {
+    const weightA = raritySortWeights[a.rarity];
+    const weightB = raritySortWeights[b.rarity];
+    if (weightA < weightB) { return -1; }
+    if (weightA > weightB) { return 1; }
+    if (weightA === weightB) { return 0; }
   });
 };
 
