@@ -15,25 +15,7 @@ router.route('/')
    *  @apiDescription Retrieves a list of users in the users collection.
    *  @apiGroup       Users
    */
-  .get(userController.list)
-
-router.route("/test")
-  /**
-   *  @api {get} /user/test Create Test User
-   *  @apiName        Create Test User
-   *  @apiDescription Creates a test user in the users collection.
-   *  @apiGroup       Users
-   */
-  .get(userController.createTestUser)
-
-router.route("/deletetest")
-  /**
-   *  @api {get} /user/deletetest Delete Test User
-   *  @apiName        Delete Test User
-   *  @apiDescription Deletes the test user in the users collection.
-   *  @apiGroup       Users
-   */
-  .get(userController.deleteTestUser)
+  .get(userController.list);
 
 router.route('/:user_id')
   /**
@@ -56,6 +38,6 @@ router.route('/:user_id')
    *  @apiDescription Deletes a user from the users collection.
    *  @apiGroup       Users
    */
-  .delete(userController.delete)
+  .delete(userController.delete);
 
 module.exports = router;
