@@ -1,53 +1,18 @@
-const _              = require('lodash');
+// Imports
 const btoa           = require('btoa');
 const sha256         = require('fast-sha256');
 const crypto         = require('crypto');
+const jwt            = require('jsonwebtoken');
+
+// Config
 const encryption_key = require('../config/getkey')('encryption');
 const secret_key     = require('../config/getkey')('secret');
 
+// Encryption Settings
 const algorithm      = 'aes-256-ctr';
-const jwt            = require('jsonwebtoken');
-const moment         = require('moment');
 
-const mongoose = require('mongoose');
-const User     = require('../models/user');
-
-/**
- *  @function authenticate
- *  @description Log in a user with a username and password and return an auth token
- */
-exports.authenticate = (req, res, next) => {
-  const email    = (typeof req.body.email    === 'string') ? req.body.email    : false;
-  const password = (typeof req.body.password === 'string') ? req.body.password : false;
-
-  if (!email || email.length < 3) {
-    return next(new Error('Email is required.'));
-  }
-  if (!password || password.length < 12) {
-    return next(new Error('Password is required.'));
-  }
-
-  User.findOne({ email }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    // Invalid Login
-    else if (!user || password !== decrypt(user.password)) {
-      return next(new Error('Invalid credentials. Please try again.'));
-    }
-
-    // Login success!
-
-    // Create an auth token
-    const payload    = { id: user._id };
-    const auth_token = jwt.sign(payload, secret_key, { expiresIn: 1440 }); // Expires in 24 Hours
-    res.status(200).json({
-      message: 'Login success!',
-      auth_token,
-      user_id: user._id,
-    });
-  });
-};
+// Models
+const User = require('../models/user');
 
 /**
  *  @function verifyAuthToken
@@ -101,4 +66,41 @@ function decrypt(text) {
 exports.hash = (text) => {
   const pw_hash = sha256(text);
   return btoa(String.fromCharCode.apply(null, pw_hash));
+};
+
+/**
+ *  @function authenticate
+ *  @description Log in a user with a username and password and return an auth token
+ */
+exports.authenticate = (req, res, next) => {
+  const email    = (typeof req.body.email    === 'string') ? req.body.email    : false;
+  const password = (typeof req.body.password === 'string') ? req.body.password : false;
+
+  if (!email || email.length < 3) {
+    return next(new Error('Email is required.'));
+  }
+  if (!password || password.length < 12) {
+    return next(new Error('Password is required.'));
+  }
+
+  User.findOne({ email }, (err, user) => {
+    if (err) {
+      return next(err);
+    }
+    // Invalid Login
+    else if (!user || password !== decrypt(user.password)) {
+      return next(new Error('Invalid credentials. Please try again.'));
+    }
+
+    // Login success!
+
+    // Create an auth token
+    const payload    = { id: user._id };
+    const auth_token = jwt.sign(payload, secret_key, { expiresIn: 1440 }); // Expires in 24 Hours
+    res.status(200).json({
+      message: 'Login success!',
+      auth_token,
+      user_id: user._id,
+    });
+  });
 };
