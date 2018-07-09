@@ -88,11 +88,14 @@ exports.authenticate = (req, res, next) => {
       return next(err);
     }
     // Invalid Login
-    else if (!user || password !== decrypt(user.password)) {
+    else if (!user) {
+      return next(new Error('User not found.'));
+    }
+    else if (password !== decrypt(user.password)) {
       return next(new Error('Invalid credentials. Please try again.'));
     }
-
     // Login success!
+    console.log(password, decrypt(user.password));
 
     // Create an auth token
     const payload    = { id: user._id };

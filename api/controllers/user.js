@@ -16,17 +16,13 @@ exports.create = (req, res, next) => {
       return next({ message: 'User already exists.', status: 400 });
     }
     // If user does not exist, create a new one.
-
     const new_user  = new User();
     new_user.name     = req.body.name;
     new_user.email    = req.body.email;
     new_user.password = authController.encrypt(req.body.password);
 
-    new_user.save((err) => {
-      if (err) {
-        return next(err);
-      }
-      res.json({ message: 'User created!' });
+    new_user.save((createdUser) => {
+      res.json({ message: 'User created!', data: createdUser });
     });
   });
 };

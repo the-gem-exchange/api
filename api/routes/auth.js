@@ -11,7 +11,7 @@ const authController = require('./../controllers/auth');
  *  @apiParam {String} username
  *  @apiParam {String} password
  */
-router.route('/login').post(authController.authenticate)
+router.route('/login').post(authController.authenticate);
 
 /**
  *  @api {post} /register Register
@@ -35,8 +35,8 @@ router.get('/getsalt', (req, res, next) => {
       res.status(200).json({ message: 'Got salt value.', data: salt });
     })
     .catch((err) => {
-      res.status(500).json({ message:"Failed to generate salt."});
-    })
+      res.status(500).json({ message: 'Failed to generate salt.' });
+    });
 });
 
 module.exports = router;
