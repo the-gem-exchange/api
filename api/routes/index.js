@@ -1,21 +1,8 @@
 const router  = require('express').Router();
-const authController = require('./../controllers/auth');
+const requestHandler = require('./../middleware/requestHandler');
 
 // Middleware for all requests
-router.use((req, res, next) => {
-  // Log all calls
-  console.log(`${req.method}: ${req.originalUrl}`);
-
-  // Set response headers
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,PATCH,DELETE');
-  res.header('Content-Type', 'application/json');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, auth-token, accept, Access-Control-Allow-Headers, Authorization, X-Requested-With');
-
-  authController.verifyAuthToken(req, res, next);
-
-  next();
-});
+router.use(requestHandler.handleRequest);
 
 // Test route
 router.get('/', (req, res) => {
@@ -27,11 +14,13 @@ const auth        = require('./auth');
 const stardragons = require('./stardragon');
 const users       = require('./user');
 const traits      = require('./trait');
+const file        = require('./file');
 
 // Use routers
 router.use('/auth',        auth);
 router.use('/stardragons', stardragons);
 router.use('/users',       users);
 router.use('/traits',      traits);
+router.use('/file',        file);
 
 module.exports = router;

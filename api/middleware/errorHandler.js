@@ -1,7 +1,7 @@
 const discord = require('../config/discord');
 const colors  = require('colors');
 
-function onError(err, req, res, next) {
+exports.onError = (err, req, res, next) => {
   // If status or message are missing, send these by default.
   const message = err.message || 'Something went wrong!';
   const status  = err.status  || 500;
@@ -24,6 +24,4 @@ function onError(err, req, res, next) {
   res.status(status).json({ status, message });
 
   next();
-}
-
-module.exports = { onError };
+};

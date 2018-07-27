@@ -5,7 +5,6 @@
 */
 
 const mongoose   = require('mongoose');
-const orderid    = require('order-id')('mysecret');
 
 const StarDragon = mongoose.model('Stardragon');
 const ObjectId   = mongoose.Types.ObjectId;
