@@ -7,7 +7,7 @@
 const mongoose   = require('mongoose');
 
 const StarDragon = mongoose.model('Stardragon');
-const ObjectId   = mongoose.Types.ObjectId;
+const { ObjectId } = mongoose.Types;
 
 /**
  *  @function    listconst
