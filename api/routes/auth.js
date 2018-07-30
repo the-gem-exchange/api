@@ -16,6 +16,20 @@ router.post('/register', (req, res, next) => {
 });
 
 /**
+ *  @api GET /events
+ *  @description Get the event log
+ */
+router.get('/events', (req, res, next) => {
+  authController.getEvents()
+    .then((events) => {
+      res.status(200).json({ message: 'Got events.', data: events });
+    })
+    .catch((err) => {
+      res.status(500).json({ message: `Error getting events. ${err}` });
+    });
+});
+
+/**
  *  @api GET /getsalt
  *  @description Get Salt to be used for password encryption.
  */

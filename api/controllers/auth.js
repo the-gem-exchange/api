@@ -12,7 +12,8 @@ const secret_key     = require('../config/getkey')('secret');
 const algorithm      = 'aes-256-ctr';
 
 // Models
-const User = require('../models/user');
+const User  = require('../models/user');
+const Event = require('../models/event');
 
 /**
  *  @function verifyAuthToken
@@ -107,3 +108,26 @@ exports.authenticate = (req, res, next) => {
     });
   });
 };
+
+/**
+ *  @function logEvent
+ *  @description Save an event to the event log
+ */
+exports.logEvent = event => new Promise((resolve, reject) => {
+  const newEvent = new Event(event);
+  newEvent.save((err, loggedError) => {
+    if (err) return reject(Error(err));
+    return resolve(loggedError);
+  });
+});
+
+/**
+ *  @function getEvents
+ *  @description Get a list of events from the event log
+ */
+exports.getEvents = () => new Promise((resolve, reject) => Event.find({}, (err, events) => {
+  if (err) {
+    reject(Error(err));
+  }
+  resolve(events);
+}));
