@@ -31,12 +31,15 @@ exports.create = (req, res, next) => {
  *  @description Get a list of all users
  */
 exports.list = (req, res, next) => {
-  User.find((err, users) => {
-    if (err) {
-      return next(err);
-    }
-    res.json(users);
-  });
+  const sort  = { name: 1 };
+  User
+    .find((err, users) => {
+      if (err) {
+        return next(err);
+      }
+      res.json(users);
+    })
+    .sort(sort);
 };
 
 /**
