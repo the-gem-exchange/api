@@ -14,12 +14,18 @@ const ObjectId   = mongoose.Types.ObjectId;
  *  @description List all Stardragons
  */
 exports.list = (req, res, next) => {
-  StarDragon.find({}, (err, stardragons) => {
-    if (err) {
-      next(err);
-    }
-    res.json(stardragons);
-  });
+  const limit = parseInt(req.query.limit, 10) || 0;
+  const sort  = { created: -1 };
+
+  StarDragon
+    .find({}, (err, stardragons) => {
+      if (err) {
+        next(err);
+      }
+      res.json(stardragons);
+    })
+    .sort(sort)
+    .limit(limit);
 };
 
 /**
