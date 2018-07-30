@@ -8,28 +8,31 @@ const StarDragonSchema = new Schema({
     required: 'Name required.',
   },
 
-  owner: String, // A user ID
-
   image: { type: String },
   image_url: { type: String },
 
   species: {
     type: String,
     enum: [
-      'StarEater',
-      'StarSweeper',
-      'StarDasher',
-      'StarFisher',
-      'StarWeaver',
-      'StarRobber',
-      'StarCrafter',
-      'StarShooter',
+      'stareater',
+      'starsweeper',
+      'stardasher',
+      'starfisher',
+      'starweaver',
+      'starrobber',
+      'starcrafter',
+      'starshooter',
+      'chimera'
     ],
   },
 
+  subSpecies: [], // An array of objects like: {type:'stardasher', subtype:'desert'}
+
+  palette: [], // An array of strings, from a color picker probably
+
   rarity: {
     type: String,
-    enum: ['common', 'uncommon', 'rare', 'legendary'],
+    enum: ['common', 'uncommon', 'rare', 'legendary', 'chimera'],
   },
 
   type: {
@@ -39,8 +42,8 @@ const StarDragonSchema = new Schema({
 
   sex: {
     type: String,
-    enum: ['male', 'female', 'n/a'],
-    default: 'n/a',
+    enum: ['male', 'female', ''],
+    default: '',
   },
 
   gender: { type: String },
@@ -52,9 +55,9 @@ const StarDragonSchema = new Schema({
     default: Date.now,
   },
 
-  approved: { type: Date },
-
   designer: { type: String },
+  owner: String, // A user ID
+  hideOwner: Boolean, // If the user does not want their ownership to be public
 
   base: { type: String },
   basePrice: { type: Number },
@@ -63,7 +66,7 @@ const StarDragonSchema = new Schema({
 
   adminNotes: { type: String },
 
-  link: { type: String },
+  link: { type: String }, // An external URL
 
 });
 
