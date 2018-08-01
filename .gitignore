@@ -4,6 +4,9 @@ encryption.key
 secret.key
 config.json
 
+# temp files
+tmp
+
 # Logs
 logs
 *.log

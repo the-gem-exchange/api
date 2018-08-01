@@ -100,7 +100,7 @@ exports.authenticate = (req, res, next) => {
 
     // Create an auth token
     const payload    = { id: user._id };
-    const auth_token = jwt.sign(payload, secret_key, { expiresIn: 1440 }); // Expires in 24 Hours
+    const auth_token = jwt.sign(payload, secret_key, { expiresIn: '24h' }); // Expires in 24 Hours
     res.status(200).json({
       message: 'Login success!',
       auth_token,
