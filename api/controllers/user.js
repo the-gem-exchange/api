@@ -51,7 +51,7 @@ exports.get = (req, res, next) => {
       return next(new Error(`Error retrieving user ${req.params.user_id}`));
     }
     res.json(user);
-  });
+  }).select('-password');
 };
 
 /**
