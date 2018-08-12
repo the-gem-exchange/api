@@ -35,10 +35,7 @@ const StarDragonSchema = new Schema({
     enum: ['common', 'uncommon', 'rare', 'legendary', 'chimera'],
   },
 
-  type: {
-    type: String,
-    enum: ['myo', 'batch', 'auction'],
-  },
+  type: { type: String },
 
   sex: {
     type: String,

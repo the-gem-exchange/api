@@ -3,6 +3,7 @@
  *  Any functions related to file management will go here
  */
 const fs       = require('fs');
+const mkdirp   = require('mkdirp');
 
 const AWS       = require('aws-sdk');
 const config    = require('./../config/config');
@@ -15,27 +16,38 @@ const s3  = new AWS.S3();
 /**
  *  @function createFile
  *  @description Create a file in tmp, then upload it to S3
+ *  @param file - The raw file data
+ *  @param location - ie 'users/123'
  */
 exports.createFile = (file, location) => new Promise((resolve, reject) => {
-  const fileLocation = `tmp/users/username/${file.name}`;
+  const fileLocation = `tmp/${location}/${file.name}`;
 
-  // Validate
-  //   Make sure user has access to this directory
-  //     if directory == user_id, check if it is THIS user's ID (and their token is valid!)
-  //     if directory == stardragon_id, check if this user is allowed to edit this stardragon!
-
-  // If valid...
-  // Create a local /tmp directory for this user if one does not exist
-  exports.createDirectory('tmp')
-    .then(exports.createDirectory('tmp/users'))
-    .then(exports.createDirectory('tmp/users/username'))
+  // Create a local directory under tmp to store this
+  exports.createDirectory(`${location}`)
+    .then(() => {
+      // then place the file there IE: tmp/users/:user_id || tmp/stardragons/:stardragon_id
+      fs.writeFile(fileLocation, file.value, { encoding: 'base64' }, (err) => {
+        if (err) return reject(Error(err));
+        //   then, upload the file to S3 using the same schema
+        s3.putObject(
+          {
+            Bucket: 'static.thegemexchange.net',
+            ACL: 'public-read',
+            Key: `${location}/${file.name}`,
+            ServerSideEncryption: 'AES256',
+            ContentType: file.type,
+            Body: fs.createReadStream(fileLocation)
+          },
+          (s3err, data) => {
+            if (s3err) return reject(Error(s3err));
+            console.log('Uploaded to S3 successfully.', data);
+            // if successful, resolve with the URL of the image
+            resolve(`http://static.thegemexchange.net/${location}/${file.name}`);
+          }
+        );
+      });
+    })
     .catch(err => reject(Error(err)));
-  //   then place the file there: /users/:user_id || /stardragons/:stardragon_id
-  fs.writeFile(fileLocation, file.value, { encoding: 'base64' }, (err) => {
-    if (err) return reject(Error(err));
-    resolve(`http://static.thegemexchange.net/${fileLocation}`);
-  });
-  //   then, upload the file to S3 using the same schema
 });
 
 /**
@@ -48,16 +60,12 @@ exports.deleteFile = file => new Promise((resolve, reject) => {
 
 /**
  *  @function createDirectory
- *  @description Create a local directory.
+ *  @description Create a local directory under tmp.
  *  @param directory A directory string
  */
 exports.createDirectory = directory => new Promise((resolve, reject) => {
-  if (!fs.existsSync(directory)) {
-    try {
-      fs.mkdirSync(directory);
-    } catch (err) {
-      return reject(Error(err));
-    }
-  }
-  return resolve(true);
+  mkdirp(`tmp/${directory}`, (err) => {
+    if (err) return reject(Error(err));
+    return resolve(true);
+  });
 });
