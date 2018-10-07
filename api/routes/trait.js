@@ -8,6 +8,14 @@ router.route('/')
    */
   .get(traitController.list);
 
+router.route('/descriptions')
+  /**
+   *  @api GET /traits/descriptions
+   *  @description Get all trait descriptions.
+   *               This provides display names and descriptions for all trait types.
+   */
+  .get(traitController.list);
+
 router.route('/:species')
   /**
    *  @api GET /traits/:species

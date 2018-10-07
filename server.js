@@ -24,6 +24,7 @@ mongoose.connect(mongoUrl, { useMongoClient: true });
 // Require local mongoose models to avoid errors
 require('./api/models/stardragon');
 require('./api/models/trait');
+require('./api/models/trait-description');
 require('./api/models/user');
 
 // Use bodyparser to let us read POST data
