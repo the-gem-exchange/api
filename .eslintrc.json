@@ -14,6 +14,7 @@
     "no-console":"off",
     "comma-dangle":"off",
     "brace-style":"off",
-    "camelcase":"off"
+    "camelcase":"off",
+    "key-spacing":"off"
   }
 }

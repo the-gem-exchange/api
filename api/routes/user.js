@@ -40,4 +40,14 @@ router.route('/:user_id')
    */
   .delete(userController.delete);
 
+router.route('/:user_id/modifyToken').patch((req, res) => {
+  userController.modifyToken(req.body.type, req.body.amount, req.body.user_id)
+    .then((result) => {
+      res.status(200).json({ message: 'Token inventory changed successfully.' });
+    })
+    .catch((err) => {
+      res.status(500).json({ message: `Error modifying token inventory. ${err}`, error: err });
+    });
+});
+
 module.exports = router;

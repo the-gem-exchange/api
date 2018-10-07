@@ -74,13 +74,33 @@ exports.update = (req, res, next) => {
 };
 
 /**
+ * @description Increment a user's token counter
+ */
+exports.modifyToken = (type, amount, userId) => new Promise((resolve, reject) => {
+  const types = ['common', 'uncommon', 'rare'];
+  if (types.indexOf(type) <= -1) {
+    // invalid type
+    return reject(Error(`Can't modify a token of type ${type}.`));
+  }
+  const update = { $inc: {} };
+  update.$inc[`inventory.tokens.${type}`] = amount;
+  User.findOneAndUpdate(
+    { _id: userId },
+    update,
+    { upsert: true, strict: false },
+    (err) => {
+      if (err) return reject(err);
+      return resolve({ type });
+    }
+  );
+});
+
+/**
  * @description Delete a specific user
  */
 exports.delete = (req, res, next) => {
-  User.remove({ _id: req.params.user_id }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
+  User.remove({ _id: req.params.user_id }, (err) => {
+    if (err) { return next(err); }
     res.json({ message: 'User deleted!' });
   });
 };

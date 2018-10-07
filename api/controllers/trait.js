@@ -6,7 +6,8 @@
 
 const mongoose = require('mongoose');
 
-const Trait = mongoose.model('Trait');
+const Trait            = mongoose.model('Trait');
+const TraitDescription = mongoose.model('TraitDescription');
 
 /**
  *  @function    list
@@ -21,6 +22,16 @@ exports.list = (req, res, next) => {
     this.sortTraits(traits).then((sortedTraits) => {
       res.send(sortedTraits);
     });
+  }).catch(err => next(err));
+};
+
+/**
+ *  @function    listDescriptions
+ *  @description List all trait descriptions
+ */
+exports.listDescriptions = (req, res, next) => {
+  TraitDescription.find({}, (err, traitDescriptions) => {
+    res.send(traitDescriptions);
   }).catch(err => next(err));
 };
 
