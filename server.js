@@ -21,7 +21,7 @@ const app = express();
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl, { useMongoClient: true });
 
-// Require local mongoose models to avoid errors
+// Require local mongoose models
 require('./api/models/stardragon');
 require('./api/models/trait');
 require('./api/models/trait-description');

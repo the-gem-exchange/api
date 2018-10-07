@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema   = mongoose.Schema;
+const { Schema } = mongoose;
 
 const TraitDescriptionSchema = new Schema({
 
@@ -17,6 +17,6 @@ const TraitDescriptionSchema = new Schema({
     starcrafter: String
   }
 
-});
+}, { collection: 'traitDescriptions' });
 
 module.exports = mongoose.model('TraitDescription', TraitDescriptionSchema);

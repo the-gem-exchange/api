@@ -30,7 +30,7 @@ exports.list = (req, res, next) => {
  *  @description List all trait descriptions
  */
 exports.listDescriptions = (req, res, next) => {
-  TraitDescription.find({}, (err, traitDescriptions) => {
+  TraitDescription.find((err, traitDescriptions) => {
     res.send(traitDescriptions);
   }).catch(err => next(err));
 };
