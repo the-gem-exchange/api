@@ -13,7 +13,7 @@
   "dependencies": {
     "aws-sdk": "^2.247.1",
     "babel-cli": "^6.26.0",
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.18.3",
     "btoa": "^1.1.2",
     "colors": "^1.1.2",
     "cors": "^2.8.4",
@@ -21,8 +21,9 @@
     "discord.js": "^11.2.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.11.0",
-    "express": "^4.15.4",
+    "eslint-plugin-import": "^2.14.0",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
     "fast-sha256": "^1.1.0",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.10",
@@ -33,6 +34,6 @@
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.18.5"
   }
 }
