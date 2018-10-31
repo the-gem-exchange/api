@@ -11,10 +11,6 @@ const bodyParser = require('body-parser');
 const express    = require('express');
 const colors     = require('colors');
 const mongoose   = require('mongoose');
-const expressJwt = require('express-jwt');
-
-// Secret key for JWT
-const secret = require('./api/config/getkey')('secret');
 
 // Set Static Values
 const { mongoUrl } = config;
@@ -34,15 +30,6 @@ require('./api/models/user');
 // Use bodyparser to let us read POST data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Use expressJwt to authenticate calls
-app.use(expressJwt({ secret }).unless({
-  // Whitelist of calls that do not need authentication
-  path: [
-    '/auth/login',
-    '/stardragons'
-  ]
-}));
 
 // Require all route files here
 const routes = require('./api/routes');

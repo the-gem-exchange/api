@@ -30,7 +30,8 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.20.1",
     "mongoose": "^4.11.10",
-    "order-id": "^1.1.0"
+    "order-id": "^1.1.0",
+    "path-to-regexp": "^2.4.0"
   },
   "devDependencies": {
     "apidoc": "^0.17.6",

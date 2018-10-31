@@ -1,5 +1,10 @@
-const router  = require('express').Router();
+const router         = require('express').Router();
+const expressJwt     = require('express-jwt');
+const pathToRegexp   = require('path-to-regexp');
 const requestHandler = require('./../middleware/requestHandler');
+
+// Secret key for JWT
+const secret = require('./../config/getkey')('secret');
 
 // Middleware for all requests
 router.use(requestHandler.handleRequest);
@@ -22,5 +27,14 @@ router.use('/stardragons', stardragons);
 router.use('/users',       users);
 router.use('/traits',      traits);
 router.use('/file',        file);
+
+// Whitelist of calls that do not need authentication
+const jwtWhitelist = [
+  pathToRegexp('/auth/login'),
+  pathToRegexp('/traits*')
+];
+
+// Use expressJwt to authenticate calls
+router.use(expressJwt({ secret }).unless({ path: jwtWhitelist }));
 
 module.exports = router;
