@@ -1,5 +1,3 @@
-const authController = require('./../controllers/auth');
-
 exports.handleRequest = (req, res, next) => {
   // Log all calls
   console.log(`${req.method}: ${req.originalUrl}`);
@@ -9,8 +7,6 @@ exports.handleRequest = (req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,PATCH,DELETE');
   res.header('Content-Type', 'application/json');
   res.header('Access-Control-Allow-Headers', 'Content-Type, auth-token, accept, Access-Control-Allow-Headers, Authorization, X-Requested-With');
-
-  authController.verifyAuthToken(req, res, next);
 
   next();
 };

@@ -5,7 +5,9 @@ const authController = require('./../controllers/auth');
  *  @api POST /auth/login
  *  @description Authenticate a user with a username and password.
  */
-router.route('/login').post(authController.authenticate);
+router.post('/login', (req, res, next) => {
+  authController.authenticate(req, res, next);
+});
 
 /**
  *  @api POST /register
